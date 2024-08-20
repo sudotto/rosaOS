@@ -1,5 +1,5 @@
 # crabOS
-raging alcoholic makes a crab themed operating system
+despite the name not written in rust
 # Dependencies:
 - nasm
 - gcc
