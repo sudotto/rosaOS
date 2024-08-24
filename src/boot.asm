@@ -1,18 +1,14 @@
-org 0x7c00
+bits 32
+section .text
+	align 4
+	dd 0x1badb002                                          ; magic number
+	dd 0x00                                                ; flags
+	dd - (0x1badb002 + 0x00)                               ; should be zero
 
-xor ax, ax
-mov ds, ax
+global start
+	extern main                                            ; main in kernel.c
 
-mov ah, 0x02
-mov al, 1
-mov ch, 0
-mov cl, 2
-mov dh, 0
-xor bx, bx
-mov es, bx
-mov bx, 0x7e00
-int 0x13
-jmp 0x7e00
-
-times 510-($-$$) db 0 
-dw 0x0AA55
+start:
+	cli                                                    ; stop interrupts
+	call main                                             ; call the kernel
+	hlt                                                    ; halt CPU
