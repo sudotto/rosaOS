@@ -1,1 +1,1 @@
-qemu-system-i386 -kernel crabOS
+qemu-system-i386 -kernel rosaOS

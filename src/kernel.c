@@ -15,7 +15,7 @@ void cls(){                                                // function to clear 
 
 // PRINT STRING
 
-unsigned int printf(char *str, unsigned int line){
+unsigned int putstr(char *str, unsigned int line){
 	char *video = (char *) 0xb8000;                        // video memory
 	unsigned int i = 0;                                    // integer for index 
 	i = (line*80*2);                                       // set position in mem
@@ -39,5 +39,6 @@ unsigned int printf(char *str, unsigned int line){
 
 void main(){
 	cls();
-	printf("Kernel", 0);
+	putstr("RosaOS v1.0", 0);
+	putstr("personal project dedicated to Rosa the Otter <3", 1);
 }
