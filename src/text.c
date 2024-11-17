@@ -2,7 +2,7 @@
 
 // LINE COUNTER
 
-unsigned int* cur_line;
+unsigned int line;
 
 // CLEAR SCREEN
 
@@ -15,16 +15,14 @@ void cls(){                                                // function to clear 
 		video[i] = 0x07;                                   // color slot in vid mem is white on black
 		i++;                                               // inc index
 	}
-	*cur_line = 0;                                         // reset line
+	line = 0;                                              // reset line
 }
 
 // PRINT STRING
 
 unsigned int print(char *str){
 	char *video = (char *) 0xb8000;                        // video memory
-	unsigned int i = 0;                                    // integer for index
-	unsigned int line = *cur_line;                         // set line to the current line
-	i = (line*80*2);                                       // set position in mem
+	unsigned int i = (line*80*2);                          // set position in mem
 	while(*str != 0){                                      // check for end of str
 		if(*str=='\n'){                                    // check for newline
 			line++;                                        // inc line
@@ -47,6 +45,6 @@ unsigned int println(char *str){
 	if(!print(str)){                                       // if print fails...
 		return 0;                                          // return fail
 	}
-	*cur_line += 1;                                        // inc line
+	line++;                                                // inc line
 	return 1;                                              // success
 }
