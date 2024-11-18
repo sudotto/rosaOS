@@ -3,6 +3,7 @@
 // LINE COUNTER
 
 unsigned int line;
+unsigned int col;
 
 // CLEAR SCREEN
 
@@ -16,9 +17,12 @@ void cls(){                                                // function to clear 
 		i++;                                               // inc index
 	}
 	line = 0;                                              // reset line
+	col = 0;                                               // reset col
 }
 
 // PRINT STRING
+
+///////////////////////////////////////////// IMPLEMENT COL ////////////////////////////////////////
 
 unsigned int print(char *str){
 	char *video = (char *) 0xb8000;                        // video memory
@@ -26,6 +30,7 @@ unsigned int print(char *str){
 	while(*str != 0){                                      // check for end of str
 		if(*str=='\n'){                                    // check for newline
 			line++;                                        // inc line
+			col = 0;                                       // reset col
 			i = (line*80*2);                               // set position in mem
 			*str++;                                        // next char in str
 		} else {                                           // if normal char
@@ -34,6 +39,7 @@ unsigned int print(char *str){
 			i++;                                           // inc index
 			video[i] = 0x07;                               // set color slot to white on black
 			i++;                                           // inc index
+			col++;
 		}
 	}
 	return 1;                                              // success!
@@ -46,5 +52,6 @@ unsigned int println(char *str){
 		return 0;                                          // return fail
 	}
 	line++;                                                // inc line
+	col = 0;                                               // reset col
 	return 1;                                              // success
 }
