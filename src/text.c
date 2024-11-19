@@ -8,50 +8,47 @@ unsigned int col;
 // CLEAR SCREEN
 
 void cls(){                                                // function to clear screen
-	char *video = (char *) 0xb8000;                        // video memory
-	unsigned int i = 0;                                    // integer for index 
-	while(i < (80*25*2)){                                  // while in screen bounds
-		video[i] = ' ';                                    // character slot in vid mem is blank
-		i++;                                               // inc index
-		video[i] = 0x07;                                   // color slot in vid mem is white on black
-		i++;                                               // inc index
+	line = 0;                                              // reset line
+	col = 0;                                               // reset col
+	for(unsigned int i = 0; i < (80*25*2); i++){           // while i is still in screen bounds, inc i...
+		printc(' ');                                       // write blank char to current address
 	}
 	line = 0;                                              // reset line
 	col = 0;                                               // reset col
 }
 
+// FUNCTION TO RETURN THE MEMORY ADDRESS BASED ON LINE AND COL
+
+unsigned int vid_index(){
+	return (line*80+col)*2;                                // this math is too stupid to write everytime, thats why i'm abstracting this
+}
+
+// PRINT CHAR
+
+void printc(char c){
+	char *video = (char *) 0xb8000;                        // video memory
+	video[vid_index()] = c;                                // asign the char slot to the character
+	video[vid_index() + 1] = 0x07;                         // asign color slot to white on black
+	col++;                                                 // inc col
+}
+
 // PRINT STRING
 
-///////////////////////////////////////////// IMPLEMENT COL ////////////////////////////////////////
-
-unsigned int print(char *str){
-	char *video = (char *) 0xb8000;                        // video memory
-	unsigned int i = (line*80*2);                          // set position in mem
-	while(*str != 0){                                      // check for end of str
-		if(*str=='\n'){                                    // check for newline
+void print(char *str){
+	for(unsigned int i = 0; str[i] != 0; i++){             // while i isn't null terminator inc i...
+		if(str[i] == "\n"){                                // if current char is CRLF...
 			line++;                                        // inc line
 			col = 0;                                       // reset col
-			i = (line*80*2);                               // set position in mem
-			*str++;                                        // next char in str
-		} else {                                           // if normal char
-			video[i] = *str;                               // print the char
-			*str++;                                        // next char in str
-			i++;                                           // inc index
-			video[i] = 0x07;                               // set color slot to white on black
-			i++;                                           // inc index
-			col++;
+		} else {                                           // if character is anything else...
+			printc(str[i]);                                // print current char
 		}
 	}
-	return 1;                                              // success!
 }
 
 // PRINTLN
 
-unsigned int println(char *str){
-	if(!print(str)){                                       // if print fails...
-		return 0;                                          // return fail
-	}
+void println(char *str){
+	print(str);                                            // print
 	line++;                                                // inc line
 	col = 0;                                               // reset col
-	return 1;                                              // success
 }

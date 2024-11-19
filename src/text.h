@@ -5,12 +5,20 @@
 
 void cls();
 
+// FUNCTION TO RETURN THE MEMORY ADDRESS BASED ON LINE AND COL
+
+unsigned int vid_index();
+
+// PRINT CHAR
+
+void printc(char c);
+
 // PRINT STRING
 
-unsigned int print(char *str);
+void print(char *str);
 
 // PRINTLN
 
-unsigned int println(char *str);
+void println(char *str);
 
 #endif
