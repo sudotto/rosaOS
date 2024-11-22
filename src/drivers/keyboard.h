@@ -11,8 +11,8 @@ uint8_t kb_status();
 
 uint8_t kb_read();
 
-// GET CHAR FROM KEYBOARD
+// TRANSLATE SCANCODE
 
-char* kb_keypressed();
+char kb_translate(uint8_t scancode);
 
 #endif
