@@ -147,16 +147,23 @@ char* keys[] = {
 	" "
 };
 
+// GLOBAL SHIFT PRESSED FLAG
+
+bool upper = false;
+
 // TRANSLATE KB SCANCODES
 
 char kb_translate(uint8_t scancode){
-	bool upper = false;
 	switch(scancode){
 		case 0x2a:                                         // left shift is pressed
-			upper = true;
-			break;
 		case 0xe5:                                         // right shift is pressed
+			upper = true;
+			return 0;
+			break;
+		case 0xaa:                                         // lshift is released
+		case 0xb6:                                         // rshift is released
 			upper = false;
+			return 0;
 			break;
 	}
 	if(scancode > 58){                                     // 58 is outside of typeable chars
@@ -168,5 +175,3 @@ char kb_translate(uint8_t scancode){
 		return ascii[scancode];                            // return normal char
 	}
 }
-
-//
