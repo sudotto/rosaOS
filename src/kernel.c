@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "text.h"
+#include "drivers/vga.h"
 #include "drivers/keyboard.h"
 
 // MAIN
