@@ -3,7 +3,7 @@
 
 // FUNCTION TO RETURN THE MEMORY ADDRESS BASED ON LINE AND COL
 
-unsigned int vid_index();
+uint16_t vid_index();
 
 // PRINT CHAR
 
