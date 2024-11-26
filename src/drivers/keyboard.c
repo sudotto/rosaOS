@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 #include "keyboard.h"
-#include "../port.h"
+#include "../memory.h"
 
 // GET KEYBOARD STATUS
 

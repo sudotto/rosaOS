@@ -1,10 +1,6 @@
 #ifndef TEXT_H
 #define TEXT_H
 
-// CLEAR SCREEN
-
-void cls();
-
 // FUNCTION TO RETURN THE MEMORY ADDRESS BASED ON LINE AND COL
 
 unsigned int vid_index();
@@ -12,6 +8,18 @@ unsigned int vid_index();
 // PRINT CHAR
 
 void printc(char c);
+
+// CLEAR SCREEN
+
+void CLS();
+
+// BACK SPACE
+
+void BS();
+
+// CRLF
+
+void CRLF();
 
 // PRINT STRING
 
