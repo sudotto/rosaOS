@@ -84,67 +84,17 @@ char ascii[] = {
 	' '
 };
 
-// KEY LIST
-
-char* keys[] = {
-	0,
-	"esc",
-	"1",
-	"2",
-	"3",
-	"4",
-	"5",
-	"6",
-	"7",
-	"8",
-	"9",
-	"0",
-	"-",
-	"=",
-	"back",
-	"tab",
-	"q",
-	"w",
-	"e",
-	"r",
-	"t",
-	"y",
-	"u",
-	"i",
-	"o",
-	"p",
-	"[",
-	"]",
-	"ret",
-	"ctrl",
-	"a",
-	"s",
-	"d",
-	"f",
-	"g",
-	"h",
-	"j",
-	"k",
-	"l",
-	";",
-	"\'",
-	"`",
-	"lshift",
-	"\\",
-	"z",
-	"x",
-	"c",
-	"v",
-	"b",
-	"n",
-	"m",
-	",",
-	".",
-	"/",
-	"rshift",
-	"*",
-	"lalt",
-	" "
+char num_upper[] = {
+	')',
+	'!',
+	'@',
+	'#',
+	'$',
+	'%',
+	'^',
+	'&',
+	'*',
+	'(',
 };
 
 // GLOBAL SHIFT PRESSED FLAG
@@ -166,12 +116,19 @@ char kb_translate(uint8_t scancode){
 			return 0;
 			break;
 	}
-	if(scancode > 58){                                     // 58 is outside of typeable chars
-		return 0;                                          // return untypeable
+	if(ascii[scancode] >= 'a' && ascii[scancode] <= 'z'){  // check if char is within alphabet (thank you arcoute9108)
+		if(upper){                                         // if the char is flagged as uppercase
+			return ascii[scancode] - 32;                   // capitalize: a (97) - 32 = A (65)
+		} else {
+			return ascii[scancode];                        // return normal char
+		}
 	}
-	if(upper){                                             // if the char is flagged as uppercase
-		return ascii[scancode] - 32;                       // a (97) - 32 = A (65)
-	} else {
-		return ascii[scancode];                            // return normal char
+	if(ascii[scancode] >= '0' && ascii[scancode] <= '9'){
+		if(upper){
+			return num_upper[ascii[scancode] - '0'];       // return shift + num ie. (1 = !) (2 = @) etc...     
+		} else {
+			return ascii[scancode];                        // just return the number
+		}
 	}
+	return 0;
 }
