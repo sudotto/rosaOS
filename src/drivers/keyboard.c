@@ -116,17 +116,20 @@ char kb_translate(uint8_t scancode){
 			return 0;
 			break;
 	}
-	if(ascii[scancode] >= 'a' && ascii[scancode] <= 'z'){  // check if char is within alphabet (thank you arcoute9108)
+	if(scancode < 58){
+		return 0;
+	}
+	if(ascii[scancode] >= 'a' && ascii[scancode] <= 'z'){      // check if char is within alphabet (thank you arcoute9108)
 		if(upper){                                         // if the char is flagged as uppercase
-			return ascii[scancode] - 32;                   // capitalize: a (97) - 32 = A (65)
+			return ascii[scancode] - 32;               // capitalize: a (97) - 32 = A (65)
 		}
 	}
 	if(ascii[scancode] >= '0' && ascii[scancode] <= '9'){
 		if(upper){
-			return num_upper[ascii[scancode] - '0'];       // return shift + num ie. (1 = !) (2 = @) etc...     
+			return num_upper[ascii[scancode] - '0'];   // return shift + num ie. (1 = !) (2 = @) etc...     
 		}
 	}
-	if(ascii[scancode]){                                   // if char is typable
+	if(ascii[scancode]){                                       // if char is typable
 		return ascii[scancode];                            // return char
 	}
 	return 0;
