@@ -116,7 +116,7 @@ char kb_translate(uint8_t scancode){
 			return 0;
 			break;
 	}
-	if(scancode < 58){
+	if(scancode > 58){
 		return 0;
 	}
 	if(ascii[scancode] >= 'a' && ascii[scancode] <= 'z'){      // check if char is within alphabet (thank you arcoute9108)
