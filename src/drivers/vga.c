@@ -4,26 +4,40 @@
 
 // LINE COUNTER
 
+unsigned int vga_lines = 25;
+unsigned int vga_cols = 80;
+
 unsigned int line;
 unsigned int col;
 
 // FUNCTION TO RETURN THE MEMORY ADDRESS BASED ON LINE AND COL
 
 uint16_t vid_index(){
-	return (line*80+col)*2;                                // this math is too stupid to write everytime, thats why i'm abstracting this
+	return (line*vga_cols+col)*2;                          // this math is too stupid to write everytime, thats why i'm abstracting this
 }
 
 // BACK SPACE
 
 void BS(){
-	col--;
-	printc(' ');
-	col--;
+	char *video = (char *) 0xb8000;                        // video memory
+	if(col == 0){
+		col = vga_cols - 1;
+		line--;
+		while(video[vid_index()] == ' '){
+			col--;
+		}
+		col++;
+	} else {
+		col--;
+		printc(' ');
+		col--;
+	}
 }
 
 // CRLF
 
 void CRLF(){
+	printc(' ');
 	line++;
 	col = 0;
 }
@@ -33,7 +47,7 @@ void CRLF(){
 void CLS(){                                                // function to clear screen
 	line = 0;                                              // reset line
 	col = 0;                                               // reset col
-	for(uint16_t i = 0; i < (80*25*2); i++){               // while i is still in screen bounds, inc i...
+	for(uint16_t i = 0; i < (vga_cols*vga_lines*2); i++){  // while i is still in screen bounds, inc i...
 		printc(' ');                                       // write blank char to current address
 	}
 	line = 0;                                              // reset line
