@@ -4,6 +4,8 @@
 #include "drivers/vga.h"
 #include "drivers/keyboard.h"
 
+#include "apps/shell.h"
+
 // MAIN
 
 void main(){
@@ -14,7 +16,10 @@ void main(){
 	bool running = true;                                             // running flag
 	while(running){                                                  // while running...
 		scan = kb_read();                                            // read scancode from keyboard
-		if(kb_translate(scan)){                                      // if char is typable...
+		if(kb_translate(scan) == 'T'){                               // if char is 'T'...
+			shell_main();                                            // start shell
+		}
+		/*if(kb_translate(scan)){                                      // if char is typable...
 			printc(kb_translate(scan));                              // print the char
 		}
 		switch(scan){                                                // if scancode is...
@@ -24,6 +29,6 @@ void main(){
 			case 28:                                                 // the enter key...
 				CRLF();                                              // newline
 				break;
-		}
+		}*/
 	}
 }

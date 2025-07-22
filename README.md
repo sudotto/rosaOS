@@ -4,6 +4,7 @@ dedicated to rosa the otter
 - nasm
 - gcc
 - qemu
+- (and) lib32-glibc
 # Usage:
 - open terminal
 - navigate to the rosaOS directory (here)
