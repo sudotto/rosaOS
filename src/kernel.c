@@ -1,8 +1,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "drivers/vga.h"
-#include "drivers/keyboard.h"
+#include "lib/vga.h"
+#include "lib/keyboard.h"
 
 #include "apps/shell.h"
 

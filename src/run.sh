@@ -1,1 +1,1 @@
-qemu-system-i386 -kernel rosaOS
+qemu-system-i386 -drive file=disk.img,format=raw,if=ide -kernel rosaOS 
