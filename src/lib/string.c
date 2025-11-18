@@ -26,9 +26,14 @@ int strclr(char* str){                           // compare strings for differnc
 	return 0;
 }
 
-void strappend(char* str, char ch){              // put a char on a string
+void strpush(char* str, char ch){              // put a char on a string
 	int offset = strlen(str);
 	str[offset] = ch;
+}
+
+void strpop(char* str){                        // put a char on a string
+	int offset = strlen(str);
+	str[offset - 1] = '\0';
 }
 
 void strcat(char* str, char* str2){              // concatenate two strings
