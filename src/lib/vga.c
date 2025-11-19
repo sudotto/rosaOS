@@ -67,7 +67,24 @@ void printc(char c){
 			break;
 		default:
 			video[vid_index()] = c;                                // asign the char slot to the character
-			video[vid_index() + 1] = 0x07;                         // asign color slot to white on black
+			video[vid_index() + 1] = (0 << 4) | 7;                         // asign color slot to white on black
+			col++;                                                 // inc col
+			break;
+	}
+}
+
+void printc_color(char c, int bg, int fg){
+	char *video = (char *) 0xb8000;                        // video memory
+	switch(c){
+		case '\n':
+			CRLF();
+			break;
+		case '\b':
+			BS();
+			break;
+		default:
+			video[vid_index()] = c;                                // asign the char slot to the character
+			video[vid_index() + 1] = (bg << 4) | fg;                        // asign color slot to fg on bg
 			col++;                                                 // inc col
 			break;
 	}
@@ -77,7 +94,13 @@ void printc(char c){
 
 void print(char *str){
 	for(uint8_t i = 0; str[i] != 0; i++){                  // while i isn't null terminator inc i...
-		printc(str[i]);                                // print current char
+		printc(str[i]);                                    // print current char
+	}
+}
+
+void print_color(char *str, int bg, int fg){
+	for(uint8_t i = 0; str[i] != 0; i++){                  // while i isn't null terminator inc i...
+		printc_color(str[i], bg, fg);                            // print current char
 	}
 }
 
