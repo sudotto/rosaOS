@@ -2,6 +2,7 @@
 
 #include "memory.h"
 #include "vga.h"
+#include "io.h"
 
 #include "disk.h"
 
@@ -18,7 +19,7 @@ uint8_t ata_verify_drive(){
 	outb(ATA_DISK, 0xE0);
 	uint8_t exists = inb(ATA_STATUS);
 	if(exists == 0x00){
-		println("drive doesnt exist");
+		print("[ERROR] drive doesnt exist\n");
 		return 1;
 	}
 	return 0;

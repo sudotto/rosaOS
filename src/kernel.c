@@ -2,6 +2,7 @@
 #include <stdbool.h>
 
 #include "lib/vga.h"
+#include "lib/io.h"
 #include "lib/keyboard.h"
 
 #include "apps/shell.h"
@@ -15,10 +16,10 @@ void reboot(){
 // MAIN
 
 void main(){
-	CLS();
-	println("RosaOS v1.0");
-	println("personal project dedicated to Rosa the Otter <3");
-	println("Press [t] to open terminal");
+	print_clear();
+	print("RosaOS v1.0\n");
+	print("personal project dedicated to Rosa the Otter <3\n");
+	print("Press [t] to open terminal\n");
 	uint8_t scan;                                                    // declare var for scancode 
 	bool running = true;                                             // running flag
 	while(running){                                                  // while running...
