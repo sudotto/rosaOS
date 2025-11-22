@@ -1,5 +1,6 @@
 # rosaOS
 dedicated to rosa the otter
+!(demo.png)
 # Dependencies:
 - nasm
 - gcc
