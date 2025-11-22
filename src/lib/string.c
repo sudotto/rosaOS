@@ -7,19 +7,27 @@ int strlen(char* str){                           // get length of string
 }
 
 int strcmp(char* str, char* str2){               // compare strings for differnces (match = 0) (beyond 0 is index before it doesn't match + 1 ie, (gate, game) = 2)
-	//if(strlen(str) != strlen(str2)){
-	//	return 1;
-	//}
 	for(int i = 0; i < strlen(str); i++){
 		if(str[i] != str2[i]){
 			return i+1;
 		}
 	}
+	if(strlen(str) == strlen(str2)){
+		return 0;
+	} else {
+		return strlen(str);
+	}
+}
+
+int strclr(char* str){                         // zero a string
+	int len = strlen(str);
+	for(int i = 0; i < len; i++){
+		str[i] = '\0';
+	}
 	return 0;
 }
 
-int strclr(char* str){
-	int len = strlen(str);
+int strclrfull(char* str, int len){                         // zero a string but like... harder
 	for(int i = 0; i < len; i++){
 		str[i] = '\0';
 	}
@@ -31,7 +39,7 @@ void strpush(char* str, char ch){              // put a char on a string
 	str[offset] = ch;
 }
 
-void strpop(char* str){                        // put a char on a string
+void strpop(char* str){                        // take a char off a string
 	int offset = strlen(str);
 	str[offset - 1] = '\0';
 }

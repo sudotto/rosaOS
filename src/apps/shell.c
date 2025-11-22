@@ -18,7 +18,7 @@ int shell_main(){
 	while(running){
 		print("~$ ");
 		bool typing = true;                      // typing flag
-		strclr(cmd);
+		strclrfull(cmd, 100);
 		while(typing){
 			scan = kb_read();
 			if(kb_translate(scan)){              // if char is typable...
@@ -57,20 +57,23 @@ int shell_main(){
 						return -1;                      // -1 = kernel reboot flag (make a enum for this later)
 					} else if(!strcmp(cmd, "otter")){
 						print("#c07  ___#n");
-						print("#c04<#c07/._.\\#c04>#n");
-						print("#c07 \\_W_/#n");
-						print("#c04 / 3#c06@#c043#c07#n");
+						print("#c06<#c07/._.\\#c06>#n");
+						print("#c07 \\ w /#c06____#n");
+						print("#c06 | 3 3   3--_#n");
+						print("#c01^^^^^^^^^^^^^^#n");
+						print("#c07");
 					} else if(!strcmp(cmd, "colors")){
 						for(int i = 0; i <= 7; i++){
 							char str[10];
-							strclr(str);
+							strclrfull(str, 10);
 							strcat(str, "#c");
 							strpush(str, i + '0');
 							strpush(str, (7 - i) + '0');
-							strcat(str, "ROSA#n");
+							//strcat(str, "ROSA#n");
 							print(str);
-							print("#c07");
+							print("ROSA#n");
 						}
+						print("#c07");
 					} else if(!strcmp(cmd, "echo") || strcmp(cmd, "echo") >= 4){
 						char msg[100];
 						strclr(msg);
