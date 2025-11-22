@@ -14,7 +14,7 @@ int shell_main(){
 	char scan;
 	bool running = true;                         // running flag
 	char cmd[100];                           // somewhere to store user input
-	print("Clam Shell\n");
+	print("Clam Shell#n");
 	while(running){
 		print("~$ ");
 		bool typing = true;                      // typing flag
@@ -29,57 +29,64 @@ int shell_main(){
 			switch(scan){                        // if scancode is...
 				case 14:                         // the backspace key...
 					strpop(cmd);
-					print("\b");
+					print("#b");
 					break;
 				case 28:                         // the enter key...
 					char cmdlen = strlen(cmd) + '0';
-					print("\n");
+					print("#n");
 					if(!strcmp(cmd, "test")){
-						print("works\n");
+						print("works#n");
 					} else if(!strcmp(cmd, "diskw")){
 						uint8_t buffer[512] = {0};
 						buffer[0] = 'a';
 						if(ata_write_sector(10, buffer) == 1){
-							print("[ERROR] disk write failed idk :P\n");
+							print("#c04[ERROR] disk write failed idk :P#n");
+							print("#c07");
 						}
 					} else if(!strcmp(cmd, "diskr")){
 						uint8_t buffer[512] = {0};
 						if(ata_read_sector(10, buffer) != 1){
 							char test = buffer[0];
 							printc(test);      // print the char
-							print("\n");
+							print("#n");
 						} else {
-							print("[ERROR] disk read failed\n");
+							print("#c04[ERROR] disk read failed#n");
+							print("#c07");
 						}
 					} else if(!strcmp(cmd, "reboot")){
 						return -1;                      // -1 = kernel reboot flag (make a enum for this later)
 					} else if(!strcmp(cmd, "otter")){
-						print("!07  ___\n");
-						print("!04<!07/._.\\!04>\n");
-						print("!07 \\_W_/\n");
-						print("!04 / 3!06@!043!07\n");
+						print("#c07  ___#n");
+						print("#c04<#c07/._.\\#c04>#n");
+						print("#c07 \\_W_/#n");
+						print("#c04 / 3#c06@#c043#c07#n");
 					} else if(!strcmp(cmd, "colors")){
 						for(int i = 0; i <= 7; i++){
 							char str[10];
 							strclr(str);
-							strpush(str, '!');
+							strcat(str, "#c");
 							strpush(str, i + '0');
 							strpush(str, (7 - i) + '0');
-							strcat(str, "ROSA\n");
+							strcat(str, "ROSA#n");
 							print(str);
-							print("!07");
+							print("#c07");
 						}
 					} else if(!strcmp(cmd, "echo") || strcmp(cmd, "echo") >= 4){
 						char msg[100];
 						strclr(msg);
 						strcut(cmd, msg, 5);
 						print(msg);
-						print("\n");
+						print("#n");
 					} else if(!strcmp(cmd, "clear")){
 						print_clear();
 					} else {
-						printc(strcmp(cmd, "echo") + '0');
-						print("[ERROR] unknown command please check spelling\n");
+						char msg[100];
+						strclr(msg);
+						strcat(msg, "#c04[ERROR] ");
+						strcat(msg, cmd);
+						strcat(msg, " is not recognized as a command,#n or maybe the os is broken who knows?#n");
+						print(msg);
+						print("#c07");
 					} 
 					typing = false;
 					break;

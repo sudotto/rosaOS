@@ -28,33 +28,40 @@ void printc(char c){
 void print(char *str){
 	for(uint8_t i = 0; str[i] != 0; i++){                  // while i isn't null terminator inc i...
 		switch(str[i]){
-			case '\n':
-				vga_write(' ', bg, fg, vga_index(line, col));
-				line++;
-				col = 0;
-				break;
-			case '\b':
-				if(col == 0){
-					col = VGA_COLS - 1;
-					line--;
-					while(vga_mem[vga_index(line, col) - 1] == ' '){
-						col--;
-					}
-					col++;
-				} else {
-					col--;
-					vga_write(' ', bg, fg, vga_index(line, col));
+			case '#': // rosaOS version of escape codes, #n is newline #b is bs #c is color
+				i++;
+				switch(str[i]){
+					case 'n': 
+						vga_write(' ', bg, fg, vga_index(line, col));
+						line++;
+						col = 0;
+						break;
+					case 'b': 
+						if(col == 0){
+							col = VGA_COLS - 1;
+							line--;
+							while(vga_mem[vga_index(line, col) - 1] == ' '){
+								col--;
+							}
+							col++;
+						} else {
+							col--;
+							vga_write(' ', bg, fg, vga_index(line, col));
+						}
+						break;
+					case 'c': 
+						i++;
+						bg = str[i] - '0';
+						i++;
+						fg = str[i] - '0';
+						break;
+					case '#':
+					default:
+						break;
 				}
 				break;
-			case '!': // rosaOS escape code for color
-				i++;
-				bg = str[i] - '0';
-				i++;
-				fg = str[i] - '0';
-				break;
 			default:
-				vga_write(str[i], bg, fg, vga_index(line, col));
-				col++;                                                 // inc col
+				printc(str[i]);
 				break;
 		}
 	}
