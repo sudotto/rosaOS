@@ -24,10 +24,14 @@ void main(){
 	bool running = true;                                             // running flag
 	while(running){                                                  // while running...
 		scan = kb_read();                                            // read scancode from keyboard
-		if(kb_translate(scan) == 't'){                               // if char is 't'...
-			if(shell_main() == -1){
-				reboot();
-			}
+		switch(kb_translate(scan)){
+			case 't':                               // if char is 't'...
+				if(shell_main() == -1){
+					reboot();
+				}
+				break;
+			case 'e':
+				print("#c70nice! you found an easter egg!#n");
 		}
 	}
 }
