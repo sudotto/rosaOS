@@ -1,6 +1,8 @@
 #include <stdint.h>
 
 #include "vga.h"
+#include "keyboard.h"
+#include "string.h"
 
 #include "io.h"
 
@@ -63,6 +65,26 @@ void print(char *str){
 			default:
 				printc(str[i]);
 				break;
+		}
+	}
+}
+
+void input(char* str){
+	char scan;
+	while(1){
+		scan = kb_read();
+		if(kb_translate(scan)){              // if char is typable...
+			char key = kb_translate(scan);
+			printc(key);                     // print the char
+			strpush(str, key);
+		}
+		switch(scan){                        // if scancode is...
+			case 14:                         // the backspace key...
+				strpop(str);
+				print("#b");
+				break;
+			case 28:                         // the enter key...
+				return;
 		}
 	}
 }

@@ -4,5 +4,6 @@
 void print_clear();
 void printc(char c);
 void print(char *str);
+void input(char *str);
 
 #endif
