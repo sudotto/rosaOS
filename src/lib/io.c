@@ -34,8 +34,12 @@ void print(char *str){
 				i++;
 				switch(str[i]){
 					case 'n': 
-						vga_write(' ', bg, fg, vga_index(line, col));
-						line++;
+						if(line >= 25 - 1){
+							vga_scroll(1);
+						} else {
+							vga_write(' ', bg, fg, vga_index(line, col));
+							line++;
+						}
 						col = 0;
 						break;
 					case 'b': 

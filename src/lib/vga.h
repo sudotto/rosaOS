@@ -17,5 +17,6 @@ extern char *vga_mem;                        // video memory
 
 uint16_t vga_index(int x, int y);
 void vga_write(char c, int bg, int fg, int i);
+void vga_scroll(int lines);
 
 #endif

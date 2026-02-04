@@ -5,7 +5,7 @@
 #include "lib/io.h"
 #include "lib/keyboard.h"
 
-#include "apps/shell.h"
+#include "apps/shell/main.h"
 
 // REBOOT
 
