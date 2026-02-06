@@ -23,7 +23,7 @@ void print_clear(){                                              // function to 
 }
 
 void printc(char c){
-	vga_write(c, bg, fg, vga_index(line, col));
+	vga_write(c, bg, fg, vga_index(col, line));
 	col++;
 }
 
@@ -37,7 +37,7 @@ void print(char *str){
 						if(line >= 25 - 1){
 							vga_scroll(1);
 						} else {
-							vga_write(' ', bg, fg, vga_index(line, col));
+							vga_write(' ', bg, fg, vga_index(col, line));
 							line++;
 						}
 						col = 0;
@@ -46,13 +46,13 @@ void print(char *str){
 						if(col == 0){
 							col = VGA_COLS - 1;
 							line--;
-							while(vga_mem[vga_index(line, col) - 1] == ' '){
+							while(vga_mem[vga_index(col, line) - 1] == ' '){
 								col--;
 							}
 							col++;
 						} else {
 							col--;
-							vga_write(' ', bg, fg, vga_index(line, col));
+							vga_write(' ', bg, fg, vga_index(col, line));
 						}
 						break;
 					case 'c': 

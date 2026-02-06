@@ -7,7 +7,7 @@
 char *vga_mem = (char*)0xb8000;                        // video memory
 
 uint16_t vga_index(int x, int y){
-	return (x*VGA_COLS+y)*2;                          // this math is too stupid to write everytime, thats why i'm abstracting this
+	return (y*VGA_COLS+x)*2;                          // this math is too stupid to write everytime, thats why i'm abstracting this
 }
 
 void vga_write(char c, int bg, int fg, int i){
@@ -20,7 +20,7 @@ void vga_scroll(int lines){
 		for(int y = 0; y < VGA_LINES; y++){
 			for(int x = 0; x < VGA_COLS; x++){
 				int a = vga_index(x, y);
-				int b = vga_index(x+1, y); 
+				int b = vga_index(x, y+1); 
 				vga_mem[a] = vga_mem[b];
 				vga_mem[a + 1] = vga_mem[b + 1];
 				

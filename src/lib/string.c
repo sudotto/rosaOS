@@ -19,19 +19,17 @@ int strcmp(char* str, char* str2){               // compare strings for differnc
 	}
 }
 
-int strclr(char* str){                         // zero a string
+void strclr(char* str){                         // zero a string
 	int len = strlen(str);
 	for(int i = 0; i < len; i++){
 		str[i] = '\0';
 	}
-	return 0;
 }
 
-int strclrfull(char* str, int len){                         // zero a string but like... harder
+void strclrfull(char* str, int len){                         // zero a string but like... harder
 	for(int i = 0; i < len; i++){
 		str[i] = '\0';
 	}
-	return 0;
 }
 
 void strpush(char* str, char ch){              // put a char on a string
@@ -44,23 +42,23 @@ void strpop(char* str){                        // take a char off a string
 	str[offset - 1] = '\0';
 }
 
-void strcpy(char* str, char* str2){              // copy string 
+void strcpy(char* str, char* dest){              // copy string 
 	for(int i = 0; i < strlen(str); i++){
-		str2[i] = str[i];
+		dest[i] = str[i];
 	}
 }
 
-void strcat(char* str, char* str2){              // concatenate two strings
+void strcat(char* str, char* src){              // concatenate two strings
 	int offset = strlen(str);
-	for(int i = 0; i < strlen(str2); i++){
-		str[i + offset] = str2[i];
+	for(int i = 0; i < strlen(src); i++){
+		str[i + offset] = src[i];
 	}
 }
 
-void strcut(char* str, char* dest, int i){              // cut a string at index
+void strcut(char* str, char* dest, int i){              // cut a string at index ie "hello" (3) -> "o"
 	int len = strlen(str) - i;
-	for(int j = 0; j < len; j++){
+	int len2 = strlen(dest);
+	for(int j = 0; j < len || j < len2; j++){
 		dest[j] = str[j + i];
-		str[j + i] = '\0';
 	}
 }

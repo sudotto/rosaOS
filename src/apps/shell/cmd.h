@@ -10,5 +10,6 @@ void cmd_colors();
 void cmd_echo(char* cmd);
 void cmd_clear();
 void cmd_help();
+void cmd_file();
 
 #endif

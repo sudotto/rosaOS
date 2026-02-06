@@ -6,6 +6,7 @@
 #include "../../lib/keyboard.h"
 #include "../../lib/string.h"
 #include "../../lib/disk.h"
+#include "../../lib/fs.h"
 
 #include "cmd.h"
 
@@ -49,7 +50,6 @@ void cmd_colors(){
 		strcat(str, "#c");
 		strpush(str, i + '0');
 		strpush(str, (7 - i) + '0');
-		//strcat(str, "ROSA#n");
 		print(str);
 		print("ROSA#n");
 	}
@@ -75,4 +75,22 @@ void cmd_help(){
 	print("   [otter]  otter#n");
 	print("   [colors] prints vga colors#n");
 	print("   [echo] prints whatever you write after echo, ie. echo hello#n");
+}
+
+void cmd_file(){
+	print(" > cmd_file()");
+	print(" > hello????????");
+	new_file("if youre reading this it works", "and desc too");
+	print(" > new filed all over the place");
+	File file;
+	print(" > b4 fopen");
+	if(!open_file(&file)){
+		print("#c04fopen failed :(#n");
+		print("#c07");
+		return;
+	}
+	print(" > after");
+	char name[32];
+	strcpy(name, file.name);
+	print(name);
 }

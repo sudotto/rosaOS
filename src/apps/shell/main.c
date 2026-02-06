@@ -42,6 +42,8 @@ int shell_main(){
 			print_clear();
 		} else if(!strcmp(cmd, "help")){
 			cmd_help();
+		} else if(!strcmp(cmd, "file")){
+			cmd_file();
 		} else {
 			char msg[100];
 			strclr(msg);
