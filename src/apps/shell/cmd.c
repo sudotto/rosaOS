@@ -75,6 +75,9 @@ void cmd_help(){
 	print("   [otter]  otter#n");
 	print("   [colors] prints vga colors#n");
 	print("   [echo] prints whatever you write after echo, ie. echo hello#n");
+	print("   [file] makes a file with name provided file, ie. file test#n");
+	print("   [tag] sets the description of given file, ie. tag test tagged#n");
+	print("   [filetest] prints shit about the file, ie. filetest test#n");
 }
 
 /*void cmd_file(){
