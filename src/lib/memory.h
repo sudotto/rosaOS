@@ -19,4 +19,6 @@ void outw(uint16_t port, uint16_t val);          // function to write word to po
 
 uint16_t inw(uint16_t port);                     // function to read word from port
 
+void* memcpy(void* dest, const void* src, unsigned long n); 
+
 #endif

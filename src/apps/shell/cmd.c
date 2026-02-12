@@ -14,7 +14,7 @@ void cmd_test(){
 }
 
 void cmd_diskw(){
-	uint8_t buffer[512] = {0};
+	char buffer[512] = {0};
 	buffer[0] = 'a';
 	if(ata_write_sector(10, buffer) == 1){
 		print("#c04[ERROR] disk write failed idk :P#n");
@@ -24,14 +24,14 @@ void cmd_diskw(){
 
 void cmd_diskr(){
 	uint8_t buffer[512] = {0};
-	if(ata_read_sector(10, buffer) != 1){
-		char test = buffer[0];
-		printc(test);      // print the char
-		print("#n");
-	} else {
+	if(ata_read_sector(10, buffer) == 1){
 		print("#c04[ERROR] disk read failed#n");
 		print("#c07");
+		return;
 	}
+	char test = buffer[0];
+	printc(test);      // print the char
+	print("#n");
 }
 
 void cmd_otter(){
@@ -58,7 +58,7 @@ void cmd_colors(){
 
 void cmd_echo(char* cmd){
 	char msg[100];
-	strclr(msg);
+	strclrfull(msg, 100);
 	strcut(cmd, msg, 5);
 	print(msg);
 	print("#n");
@@ -77,20 +77,52 @@ void cmd_help(){
 	print("   [echo] prints whatever you write after echo, ie. echo hello#n");
 }
 
-void cmd_file(){
-	print(" > cmd_file()");
-	print(" > hello????????");
-	new_file("if youre reading this it works", "and desc too");
-	print(" > new filed all over the place");
+/*void cmd_file(){
+	new_file("file 2", "DESC\0");
+}*/
+
+void cmd_file(char* cmd){
+	char name[100];
+	strclrfull(name, 100);
+	strcut(cmd, name, 5);
+	new_file(name, "");
+}
+
+void cmd_tag(char* cmd){
+	char name[100];
+	strclrfull(name, 100);
+	char tag[100];
+	strclrfull(tag, 100);
+	strcut(cmd, name, 4);
+	for(int i = 0; i < 100; i++){
+		if(name[i] == ' '){
+			strcut(name, tag, i);
+		}
+	}
 	File file;
-	print(" > b4 fopen");
-	if(!open_file(&file)){
+	if(open_file(&file, name) == 1){
 		print("#c04fopen failed :(#n");
 		print("#c07");
 		return;
 	}
-	print(" > after");
-	char name[32];
-	strcpy(name, file.name);
-	print(name);
+	strcpy(tag, file.desc);
+	close_file(&file);
+}
+
+void cmd_filetest(char* cmd){
+	char name[100];
+	strclrfull(name, 100);
+	strcut(cmd, name, 9);
+	File file;
+	if(open_file(&file, name) == 1){
+		print("#c04fopen failed :(#n");
+		print("#c07");
+		return;
+	}
+	print("filename: ");
+	print(file.name);
+	print("#n");
+	print("description: ");
+	print(file.desc);
+	print("#n");
 }

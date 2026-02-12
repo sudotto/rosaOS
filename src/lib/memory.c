@@ -31,3 +31,9 @@ uint16_t inw(uint16_t port) {                                         // functio
 	return result;                                                   // return the result
 }
 
+
+void* memcpy(void* dest, const void* src, unsigned long n){                 // stole this code no idea how it works (yet)
+	for(int i = 0; i < n; i++){
+		((char*)dest)[i] = ((char*)src)[i];
+	}
+}

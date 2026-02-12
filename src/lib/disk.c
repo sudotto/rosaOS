@@ -39,7 +39,6 @@ uint8_t ata_write_sector(uint32_t lba, uint8_t* data){    // write to a sector
 		uint16_t word = ((uint16_t)data[i * 2] << 8) | data[i * 2 + 1]; // combine high and low
 		outw(ATA_DATA, word);                              // |  
 	}
-	//ata_wait();                                          // wait for ata
 	return inb(ATA_STATUS);                                // return :)
 }
 
@@ -59,6 +58,5 @@ uint8_t ata_read_sector(uint32_t lba, uint8_t* buffer){   // write to a sector
 		buffer[i * 2]     = (uint8_t)(word >> 8);     // high byte
 		buffer[i * 2 + 1] = (uint8_t)(word & 0x00FF);  // low byte
 	}
-	//ata_wait();                                          // wait for ata
 	return inb(ATA_STATUS);                                // return :)
 }

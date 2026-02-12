@@ -10,6 +10,8 @@ void cmd_colors();
 void cmd_echo(char* cmd);
 void cmd_clear();
 void cmd_help();
-void cmd_file();
+void cmd_file(char* cmd);
+void cmd_tag(char* cmd);
+void cmd_filetest(char* cmd);
 
 #endif

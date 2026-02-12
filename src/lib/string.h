@@ -9,6 +9,6 @@ void strpush(char* str, char ch);                // push char to string
 void strpop(char* str);                          // pop char from string
 void strcpy(char* str, char* dest);              // copy string 
 void strcat(char* str, char* src);               // concatenate two strings
-void strcut(char* str, char* dest, int i);       // cut a string at index 
+void strcut(char* str, char* dest, int i);       // cut a string at index
 
 #endif

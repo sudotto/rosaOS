@@ -1,6 +1,8 @@
+#include "io.h"
+
 int strlen(char* str){                           // get length of string
 	for(int i = 0; i < 512; i++){
-		if(str[i] == '\0'){
+		if(str[i] == 0){
 			return i;
 		}
 	}
@@ -22,13 +24,13 @@ int strcmp(char* str, char* str2){               // compare strings for differnc
 void strclr(char* str){                         // zero a string
 	int len = strlen(str);
 	for(int i = 0; i < len; i++){
-		str[i] = '\0';
+		str[i] = 0;
 	}
 }
 
 void strclrfull(char* str, int len){                         // zero a string but like... harder
 	for(int i = 0; i < len; i++){
-		str[i] = '\0';
+		str[i] = 0;
 	}
 }
 
@@ -39,10 +41,10 @@ void strpush(char* str, char ch){              // put a char on a string
 
 void strpop(char* str){                        // take a char off a string
 	int offset = strlen(str);
-	str[offset - 1] = '\0';
+	str[offset - 1] = 0;
 }
 
-void strcpy(char* str, char* dest){              // copy string 
+void strcpy(char* str, char* dest){              // copy str into dest 
 	for(int i = 0; i < strlen(str); i++){
 		dest[i] = str[i];
 	}
@@ -55,10 +57,20 @@ void strcat(char* str, char* src){              // concatenate two strings
 	}
 }
 
-void strcut(char* str, char* dest, int i){              // cut a string at index ie "hello" (3) -> "o"
+void strcut(char* str, char* dest, int i){              // cut a string at index
 	int len = strlen(str) - i;
-	int len2 = strlen(dest);
-	for(int j = 0; j < len || j < len2; j++){
+	for(int j = 0; j < len; j++){
 		dest[j] = str[j + i];
+		str[j + i] = 0;
 	}
 }
+
+/*
+void strcut(char* str, char* dest, int i){              // cut a string at index
+	int len = strlen(str) - i;
+	for(int j = 0; j < len; j++){
+		dest[j] = str[j + i];
+		str[j + i] = '\0';
+	}
+}
+*/
