@@ -46,8 +46,14 @@ int shell_main(){
 			cmd_filetest(cmd);
 		} else if(!strcmp(cmd, "file") || strcmp(cmd, "file") >= 4){
 			cmd_file(cmd);
+		} else if(!strcmp(cmd, "name") || strcmp(cmd, "name") >= 4){
+			cmd_name(cmd);
 		} else if(!strcmp(cmd, "tag") || strcmp(cmd, "tag") >= 3){
 			cmd_tag(cmd);
+		} else if(!strcmp(cmd, "list")){
+			cmd_list();
+		} else if(!strcmp(cmd, "del") || strcmp(cmd, "del") >= 3){
+			cmd_del(cmd);
 		} else {
 			char msg[100];
 			strclr(msg);

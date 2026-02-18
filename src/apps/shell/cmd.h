@@ -11,7 +11,10 @@ void cmd_echo(char* cmd);
 void cmd_clear();
 void cmd_help();
 void cmd_file(char* cmd);
+void cmd_name(char* cmd);
 void cmd_tag(char* cmd);
+void cmd_list();
+void cmd_del(char* cmd);
 void cmd_filetest(char* cmd);
 
 #endif

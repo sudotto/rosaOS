@@ -21,11 +21,13 @@ typedef struct {
 void new_file(char* name, char* desc);
 int open_file(File* file, char* filename);
 int close_file(File* file);
+int del_file(File* file);
 
 // MULTIPLE FILES
 
 int new_fs(); // init fs by zeroing the init flags of empty fentries
 int search_fs(char* filename);
+int list_fs();
 int end_of_fs();
 
 #endif

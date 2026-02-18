@@ -110,6 +110,19 @@ int close_file(File* file){
 	return 0;
 }
 
+int del_file(File* file){
+	for(int sector = file->sector; sector < end_of_fs(); sector++){
+		char buffer[512] = {0};
+		if(ata_read_sector(sector + FS_START + FILE_SIZE, buffer) == 1){
+			return 1;
+		}
+		if(ata_write_sector(sector + FS_START, buffer) == 1){
+			return 1;
+		}
+	}
+	return 0;
+}
+
 int new_fs(){
 	for(int i = 0; i < 512; i++){
 		char buffer[512] = {0};
@@ -141,6 +154,24 @@ int search_fs(char* filename){
 		}
 	}
 	return -1;
+}
+
+int list_fs(){
+	for(int file = 0; file < end_of_fs(); file++){
+		char buffer[512] = {0};
+		char diskname[32];
+		int sector = file * (FILE_SIZE / 512);
+		if(ata_read_sector(sector + FS_START, buffer) == 1){
+			return 1;
+		}
+		for(int j = 0; j < 32; j++){
+			diskname[j] = buffer[j + 1]; 
+		}
+		diskname[31] = 0;
+		print(diskname);
+		print("#n");
+	}
+	return 0;
 }
 
 int end_of_fs(){
