@@ -11,8 +11,8 @@ gcc $cflags -m32 -c   lib/string.c       -o string.o
 gcc $cflags -m32 -c   lib/disk.c         -o disk.o
 gcc $cflags -m32 -c   lib/io.c           -o io.o
 gcc $cflags -m32 -c   lib/fs.c           -o fs.o
-gcc $cflags -m32 -c   apps/shell/main.c  -o shell.o
-gcc $cflags -m32 -c   apps/shell/cmd.c   -o cmd.o
+gcc $cflags -m32 -c   app/shell/main.c  -o shell.o
+gcc $cflags -m32 -c   app/shell/cmd.c   -o cmd.o
 
 # link
 

@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdbool.h>
 
 #include "vga.h"
 #include "keyboard.h"
@@ -8,6 +9,8 @@
 
 unsigned int line = 0;
 unsigned int col = 0;
+
+bool fucky_backspace = false;
 
 int bg = BLK;
 int fg = WHT;
@@ -20,6 +23,10 @@ void print_clear(){                                              // function to 
 	}
 	line = 0;                                              // reset line
 	col = 0;                                               // reset col
+}
+
+void print_cursor(){
+	vga_write('_', fg, bg, vga_index(col, line));
 }
 
 void printc(char c){
@@ -46,11 +53,12 @@ void print(char *str){
 						if(col == 0){
 							col = VGA_COLS - 1;
 							line--;
-							while(vga_mem[vga_index(col, line) - 1] == ' '){
+							while(vga_mem[vga_index(col, line) - 1] == '\0'){
 								col--;
 							}
 							col++;
 						} else {
+							vga_write(' ', bg, fg, vga_index(col, line));
 							col--;
 							vga_write(' ', bg, fg, vga_index(col, line));
 						}
@@ -76,19 +84,22 @@ void print(char *str){
 void input(char* str){
 	char scan;
 	while(1){
+		print_cursor();
 		scan = kb_read();
+		switch(scan){                        // if scancode is...
+			case 14:                         // the backspace key...
+				if(strlen(str) != 0 || fucky_backspace == true){
+					strpop(str);
+					print("#b");
+				}
+				break;
+			case 28:                         // the enter key...
+				return;
+		}
 		if(kb_translate(scan)){              // if char is typable...
 			char key = kb_translate(scan);
 			printc(key);                     // print the char
 			strpush(str, key);
-		}
-		switch(scan){                        // if scancode is...
-			case 14:                         // the backspace key...
-				strpop(str);
-				print("#b");
-				break;
-			case 28:                         // the enter key...
-				return;
 		}
 	}
 }

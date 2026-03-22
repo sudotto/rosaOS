@@ -14,14 +14,18 @@
 int shell_main(){
 	print_clear();                                       // clear screen
 	char scan;
+	char username[100];
+	strcpy("user", username);
 	bool running = true;                         // running flag
 	char cmd[100];                           // somewhere to store user input
+	//int cmdlen;
 	print("Clam Shell#n");
 	while(running){
-		print("~$ ");
+		print("<");
+		print(username);
+		print("> ");
 		strclrfull(cmd, 100);
 		input(cmd);
-		char cmdlen = strlen(cmd) + '0';
 		print("#n");
 		if(!strcmp(cmd, "test")){
 			vga_scroll(1);
@@ -54,6 +58,14 @@ int shell_main(){
 			cmd_list();
 		} else if(!strcmp(cmd, "del") || strcmp(cmd, "del") >= 3){
 			cmd_del(cmd);
+		} else if(!strcmp(cmd, "sandbox")){
+			print("#co4fucky_backspace [ENABLED]#c07#n");
+			fucky_backspace = true;
+		} else if(!strcmp(cmd, "user")){
+			print("what is your name? ");
+			strclr(username);
+			input(username);
+			print("#n");
 		} else {
 			char msg[100];
 			strclr(msg);
