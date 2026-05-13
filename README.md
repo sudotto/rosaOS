@@ -1,5 +1,6 @@
 # rosaOS
 dedicated to rosa the otter
+(basically a joke os at this point, yall can fork and fix if you want)
 ![image](./demo.png)
 # Dependencies:
 - nasm
